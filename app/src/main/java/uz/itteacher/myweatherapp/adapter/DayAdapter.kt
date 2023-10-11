@@ -10,7 +10,7 @@ import coil.load
 import uz.itteacher.myweatherapp.R
 import uz.itteacher.myweatherapp.model.Day
 
-class DayAdapter(var days:MutableList<Day>) : RecyclerView.Adapter<DayAdapter.Holder>() {
+class DayAdapter(var days:MutableList<Day>, var dayInterface: DayInterface) : RecyclerView.Adapter<DayAdapter.Holder>() {
 
     class Holder(view:View):RecyclerView.ViewHolder(view){
         var day = view.findViewById<TextView>(R.id.date)
@@ -33,5 +33,12 @@ class DayAdapter(var days:MutableList<Day>) : RecyclerView.Adapter<DayAdapter.Ho
         holder.maxtemp.text = day.maxtemp_c
         holder.con_text.text = day.con_text
         holder.day_icon.load(day.day_icon)
+
+        holder.itemView.setOnClickListener {
+            dayInterface.dayOnClick(day.day)
+        }
+    }
+    interface DayInterface{
+        fun dayOnClick(day:String)
     }
 }
